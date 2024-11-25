@@ -294,7 +294,7 @@ def get_neighbors(position, maze):
 
 # Add a global variable for the delay counter
 ghost_delay_counter = 0
-GHOST_DELAY = 10  # Number of ticks to delay the movement for both ghosts
+GHOST_DELAY = 5  # Number of ticks to delay the movement for both ghosts
 ghosts[0][1]-=1
 ghosts[1][1]+=1
 
