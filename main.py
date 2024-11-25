@@ -56,29 +56,6 @@ level1maze = [
 
 
 maze = level1maze
-level2maze = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1],
-    [3, 3, 3, 1, 0, 1, 0, 2, 0, 0, 0, 0, 0, 1, 0, 1, 3, 3, 3],
-    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [3, 3, 3, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 3, 3, 3],
-    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-    [1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1],
-    [1, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-]
 level = "Level1"
 pellet = 0
 mazePotZeroCount = 0 #Potential count for current level empty cells
@@ -97,6 +74,7 @@ pacmanX = 1
 pacmanY = 1
 pacman_lives = 2
 pacmanDir = [0, 0, 0, 0] # ["Up", "Right", "Down", "Left"]
+
 
 
 pacman_score = 0
@@ -132,10 +110,45 @@ def draw_maze(level):
 
 def setMazeLevel(level):
     global maze
+    level1maze = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1],
+    [3, 3, 3, 1, 0, 1, 0, 2, 0, 0, 0, 0, 0, 1, 0, 1, 3, 3, 3],
+    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+    [3, 3, 3, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 3, 3, 3],
+    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+    [1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1],
+    [1, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+]
+    pellet = 0
+    for row in range(len(level1maze)):
+        for col in range(len(level1maze[0])):
+            if level1maze[row][col] == 2:
+                pellet += 1
+
     
     if level == "Level1":
         draw_maze(level1maze)
     elif level == "Level2":
+        level2maze = [row[:] for row in level1maze]  # Create a copy of level1maze
+        for row in range(len(level1maze)):
+            for col in range(len(level1maze[0])):
+                if level1maze[row][col] == 2 and pellet > 3:
+                    level2maze[row][col] = 0
+                    pellet = max(0, pellet - 1)  # Ensure pellet does not go negative
         draw_maze(level2maze)
     else:
         print("Invalid Maze Input", level)
@@ -492,6 +505,8 @@ def main():
 
         global pacman_lives
 
+        screen.fill(BLACK)
+        
         # Handle movement
         if keys[pygame.K_LEFT]:
             current_direction = "Left"
@@ -557,9 +572,10 @@ def main():
                     mazePotZeroCount += 1
                 if level1maze[row][col] == 3:
                     mazeZeroCount += 1
-        if mazePotZeroCount == mazeZeroCount: 
-            maze = level2maze
+        if mazePotZeroCount > mazeZeroCount: 
             draw_maze(maze)
+        else:
+            setMazeLevel("Level2")
         print(mazePotZeroCount, mazeZeroCount)
 
 
@@ -568,9 +584,7 @@ def main():
         mazeZeroCount = 0
         mazePotZeroCount = 0
         # Redraw the screen
-        screen.fill(BLACK)
         
-        setMazeLevel(level)
         # sets maze level and draws maze
         draw_pacman(pacman_x, pacman_y)  # Ensure Pac-Man is drawn after updating position
         draw_ghosts(ghosts)
