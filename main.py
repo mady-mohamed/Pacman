@@ -507,10 +507,10 @@ def main():
             maze[getPacmanY()][getPacmanX()] = 3
 
         # Move the ghosts
-        # ghosts[0][0], ghosts[0][1] = move_ghost((ghosts[0][0], ghosts[0][1]), (getPacmanY(), getPacmanX()), ghosts[0][3], maze, 0)
-        # ghosts[1][0], ghosts[1][1] = move_ghost((ghosts[1][0], ghosts[1][1]), (getPacmanY(), getPacmanX()), ghosts[1][3], maze, 1)
-        # ghosts[2][0], ghosts[2][1] = move_ghost((ghosts[2][0], ghosts[2][1]), (getPacmanY(), getPacmanX()), ghosts[2][3], maze, 2)
-        # ghosts[3][0], ghosts[3][1] = move_ghost((ghosts[3][0], ghosts[3][1]), (getPacmanY(), getPacmanX()), ghosts[3][3], maze, 3)
+        ghosts[0][0], ghosts[0][1] = move_ghost((ghosts[0][0], ghosts[0][1]), (getPacmanY(), getPacmanX()), ghosts[0][3], maze, 0)
+        ghosts[1][0], ghosts[1][1] = move_ghost((ghosts[1][0], ghosts[1][1]), (getPacmanY(), getPacmanX()), ghosts[1][3], maze, 1)
+        ghosts[2][0], ghosts[2][1] = move_ghost((ghosts[2][0], ghosts[2][1]), (getPacmanY(), getPacmanX()), ghosts[2][3], maze, 2)
+        ghosts[3][0], ghosts[3][1] = move_ghost((ghosts[3][0], ghosts[3][1]), (getPacmanY(), getPacmanX()), ghosts[3][3], maze, 3)
 
         # Check for collisions with ghosts when in KILL mode
         if pacmanmode == "KILL":
