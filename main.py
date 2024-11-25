@@ -30,36 +30,12 @@ WHITE = (255, 255, 255)
 
 global level1maze, level2maze
 # Maze layout (1: wall, 0: dot, 2: pellet, 3: empty)
-level1maze = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1],
-    [3, 3, 3, 1, 0, 1, 0, 2, 0, 0, 0, 0, 0, 1, 0, 1, 3, 3, 3],
-    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [3, 3, 3, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 3, 3, 3],
-    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-    [1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1],
-    [1, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-]
 
-
-maze = level1maze
 level = "Level1"
 pellet = 0
 mazePotZeroCount = 0 #Potential count for current level empty cells
 mazeZeroCount = 0   #Current count for empty cells
+mazeLevel = 1
 
 # Ghost positions and colors
 ghosts = [
@@ -89,8 +65,6 @@ def draw_score():
     score_text = font.render(f"Score: {getPacmanScore()}", True, (255, 255, 255))
     screen.blit(score_text, ((len(maze[0])*CELL_SIZE)-4*CELL_SIZE, (CELL_SIZE//2)-6))
 
-
-
 # Function to draw the maze
 def draw_maze(level):
     for row in range(len(level)):
@@ -108,7 +82,7 @@ def draw_maze(level):
                     screen, WHITE, (col * CELL_SIZE + CELL_SIZE // 2, row * CELL_SIZE + CELL_SIZE // 2), 5
                 )
 
-def setMazeLevel(level):
+def getMazeDesign(level):
     global maze
     level1maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -141,7 +115,7 @@ def setMazeLevel(level):
 
     
     if level == "Level1":
-        draw_maze(level1maze)
+        return level1maze
     elif level == "Level2":
         level2maze = [row[:] for row in level1maze]  # Create a copy of level1maze
         for row in range(len(level1maze)):
@@ -149,11 +123,10 @@ def setMazeLevel(level):
                 if level1maze[row][col] == 2 and pellet > 3:
                     level2maze[row][col] = 0
                     pellet = max(0, pellet - 1)  # Ensure pellet does not go negative
-        draw_maze(level2maze)
+        return level2maze
     else:
         print("Invalid Maze Input", level)
-        draw_maze(level1maze)
-    draw_maze(maze)
+        return level1maze
 
 
 # Function to draw Pac-Man
@@ -490,8 +463,10 @@ def move_pacman(direction):
             setPacmanY(getPacmanY() + vel)
             setPacmanOrientation("Down")
 
+maze = getMazeDesign("Level1")
+
 def main():
-    global screen, kill_mode_timer, ghost_respawn_timer, current_direction, mazeZeroCount, mazePotZeroCount, maze
+    global screen, kill_mode_timer, ghost_respawn_timer, current_direction, mazeZeroCount, mazePotZeroCount, maze, mazeLevel
     clock = pygame.time.Clock()
     running = True
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -532,10 +507,10 @@ def main():
             maze[getPacmanY()][getPacmanX()] = 3
 
         # Move the ghosts
-        ghosts[0][0], ghosts[0][1] = move_ghost((ghosts[0][0], ghosts[0][1]), (getPacmanY(), getPacmanX()), ghosts[0][3], maze, 0)
-        ghosts[1][0], ghosts[1][1] = move_ghost((ghosts[1][0], ghosts[1][1]), (getPacmanY(), getPacmanX()), ghosts[1][3], maze, 1)
-        ghosts[2][0], ghosts[2][1] = move_ghost((ghosts[2][0], ghosts[2][1]), (getPacmanY(), getPacmanX()), ghosts[2][3], maze, 2)
-        ghosts[3][0], ghosts[3][1] = move_ghost((ghosts[3][0], ghosts[3][1]), (getPacmanY(), getPacmanX()), ghosts[3][3], maze, 3)
+        # ghosts[0][0], ghosts[0][1] = move_ghost((ghosts[0][0], ghosts[0][1]), (getPacmanY(), getPacmanX()), ghosts[0][3], maze, 0)
+        # ghosts[1][0], ghosts[1][1] = move_ghost((ghosts[1][0], ghosts[1][1]), (getPacmanY(), getPacmanX()), ghosts[1][3], maze, 1)
+        # ghosts[2][0], ghosts[2][1] = move_ghost((ghosts[2][0], ghosts[2][1]), (getPacmanY(), getPacmanX()), ghosts[2][3], maze, 2)
+        # ghosts[3][0], ghosts[3][1] = move_ghost((ghosts[3][0], ghosts[3][1]), (getPacmanY(), getPacmanX()), ghosts[3][3], maze, 3)
 
         # Check for collisions with ghosts when in KILL mode
         if pacmanmode == "KILL":
@@ -566,17 +541,29 @@ def main():
                 if pacman_lives < 0:
                     running = False
 
-        for row in range(len(level1maze)-1):
-            for col in range(len(level1maze[0])-1):
-                if level1maze[row][col] == 2 or level1maze[row][col] == 0 or level1maze[row][col] == 3:
+        for row in range(len(getMazeDesign("Level1"))-1):
+            for col in range(len(getMazeDesign("Level1")[0])-1):
+                if getMazeDesign("Level1")[row][col] == 2 or getMazeDesign("Level1")[row][col] == 0 or getMazeDesign("Level1")[row][col] == 3:
                     mazePotZeroCount += 1
-                if level1maze[row][col] == 3:
+                if maze[row][col] == 3:
                     mazeZeroCount += 1
         if mazePotZeroCount > mazeZeroCount: 
             draw_maze(maze)
-        else:
-            setMazeLevel("Level2")
-        print(mazePotZeroCount, mazeZeroCount)
+        elif mazePotZeroCount == mazeZeroCount:
+            draw_maze(getMazeDesign("Level2"))
+            maze = getMazeDesign("Level2")
+            mazeZeroCount = 0
+            setPacmanX(1)
+            setPacmanY(1)
+            setGhostPos("RED", 10, 8) #(9 8) (9 10) (8 9) (10 9)
+            setGhostPos("CYAN", 8, 10)
+            setGhostPos("PINK", 7, 9)
+            setGhostPos("ORANGE", 11, 9)
+            mazeLevel += 1
+        if mazeLevel > 2:
+            running = False
+
+        print(mazePotZeroCount, mazeZeroCount, mazeLevel)
 
 
         
