@@ -77,18 +77,18 @@ def getMazeDesign(level):
         return level1maze
 
 # Function to draw the maze
-def draw_maze(level):
-    for row in range(len(level)):
-        for col in range(len(level[row])):
+def draw_maze(mazeLevel = getMazeDesign("Level1")):
+    for row in range(len(mazeLevel)):
+        for col in range(len(mazeLevel[row])):
             x = col * CELL_SIZE
             y = row * CELL_SIZE
-            if level[row][col] == 1:  # Wall
+            if mazeLevel[row][col] == 1:  # Wall
                 pygame.draw.rect(screen, BLUE, (x, y, CELL_SIZE, CELL_SIZE))
-            elif level[row][col] == 0:  # Dot
+            elif mazeLevel[row][col] == 0:  # Dot
                 pygame.draw.circle(
                     screen, WHITE, (col * CELL_SIZE + CELL_SIZE // 2, row * CELL_SIZE + CELL_SIZE // 2), 2
                 )
-            elif level[row][col] == 2:  # Pellet
+            elif mazeLevel[row][col] == 2:  # Pellet
                 pygame.draw.circle(
                     screen, WHITE, (col * CELL_SIZE + CELL_SIZE // 2, row * CELL_SIZE + CELL_SIZE // 2), 5
                 )
