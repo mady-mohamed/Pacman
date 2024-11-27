@@ -57,13 +57,14 @@ def get_neighbors(position, maze):
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
     for direction in directions:
         neighbor = (position[0] + direction[0], position[1] + direction[1])
-        if 0 <= neighbor[0] < len(maze) and 0 <= neighbor[1] < len(maze[0]) and maze[neighbor[0]][neighbor[1]] != 1:
+        if 0 <= neighbor[0] < len(maze) and 0 <= neighbor[1] < len(maze[0]) and maze[neighbor[0]][neighbor[1]] in [0, 1, 17]:
             neighbors.append(neighbor)
     return neighbors
 
 
 
 def astar(start, goal, maze):
+    # F score = H score (estimation) + G score (cost)
     randomness = random.random()
     # Initialize the open list with the start node and its estimation
     #  of the total cost to reach the goal through a particular node (0)
@@ -89,13 +90,13 @@ def astar(start, goal, maze):
             while current in came_from:
                 path.append(current)
                 current = came_from[current]
-            path.append(start)
+            path.append(start)      # Stack Important
             path.reverse()
             return path
-
+        
         # Get the neighbors of the current node
         for neighbor in get_neighbors(current, maze):
-            # Calculate the tentative g-score for the neighbor
+            # Calculate the tentative g-score (cost) for the neighbor
             tentative_g_score = g_score[current] + 1
             
             # If the neighbor is not in g_score or the tentative g-score is lower, update the scores

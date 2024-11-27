@@ -154,61 +154,47 @@ vel = 1
 def move_pacman(direction, maze):
     global pacmanX, pacmanY, pacman_lives, current_direction
 
+    
+
     if direction == "Left":
-        if getPacmanX() > 0 and maze[int(getPacmanY())][math.floor(getPacmanX()-vel)] != 1:
+        if getPacmanX() > 0 and maze[int(getPacmanY())][getPacmanX() - vel] in [0, 1, 17]:
             setPacmanX(getPacmanX() - vel)
             setPacmanY(int(getPacmanY()))
             setPacmanOrientation("Left")
-            if pacmanmode == "KILL" and getGhostPos("RED") == (getPacmanX() - 1, getPacmanY()):
-                setGhostPos("RED", 8, 9)
-                setPacmanScore(getPacmanScore() + 200)
-            if pacmanmode == "KILL" and getGhostPos("CYAN") == (getPacmanX() - 1, getPacmanY()):
-                setGhostPos("CYAN", 8, 9)
-                setPacmanScore(getPacmanScore() + 200)
-            if pacmanmode == "KILL" and getGhostPos("PINK") == (getPacmanX() - 1, getPacmanY()):
-                setGhostPos("PINK", 8, 9)
-                setPacmanScore(getPacmanScore() + 200)
-            if pacmanmode == "KILL" and getGhostPos("ORANGE") == (getPacmanX() - 1, getPacmanY()):
-                setGhostPos("ORANGE", 8, 9)
-                setPacmanScore(getPacmanScore() + 200)
+            if pacmanmode == "KILL":
+                killGhost("Left")
         elif getPacmanX() == 0:
             setPacmanX(len(maze[0]) - 1)
-            setPacmanY(int(getPacmanY()))
+            setPacmanY(getPacmanY())
             setPacmanOrientation("Left")
 
     elif direction == "Right":
-        if getPacmanX() < WIDTH // CELL_SIZE - 1 and maze[int(getPacmanY())][math.ceil(getPacmanX()+vel)] != 1:
+        if getPacmanX() < WIDTH // CELL_SIZE - 1 and maze[int(getPacmanY())][math.ceil(getPacmanX()+vel)] in [0, 1, 17]:
             setPacmanX(getPacmanX() + vel)
             setPacmanY(int(getPacmanY()))
             setPacmanOrientation("Right")
-            if pacmanmode == "KILL" and getGhostPos("RED") == (getPacmanX() + 1, getPacmanY()):
-                setGhostPos("RED", 8, 9)
-                setPacmanScore(getPacmanScore() + 200)
-            if pacmanmode == "KILL" and getGhostPos("CYAN") == (getPacmanX() + 1, getPacmanY()):
-                setGhostPos("CYAN", 8, 9)
-                setPacmanScore(getPacmanScore() + 200)
-            if pacmanmode == "KILL" and getGhostPos("PINK") == (getPacmanX() + 1, getPacmanY()):
-                setGhostPos("PINK", 8, 9)
-                setPacmanScore(getPacmanScore() + 200)
-            if pacmanmode == "KILL" and getGhostPos("ORANGE") == (getPacmanX() + 1, getPacmanY()):
-                setGhostPos("ORANGE", 8, 9)
-                setPacmanScore(getPacmanScore() + 200)
+            if pacmanmode == "KILL":
+                killGhost("Right")
         elif getPacmanX() == len(maze[0]) - 1:
             setPacmanX(0)
             setPacmanY(int(getPacmanY()))
             setPacmanOrientation("Right")
 
     elif direction == "Up":
-        if getPacmanY() > 0 and maze[int(getPacmanY()-vel)][math.ceil(getPacmanX())] != 1:
+        if getPacmanY() > 0 and maze[int(getPacmanY()-vel)][math.ceil(getPacmanX())] in [0, 1, 17]:
             setPacmanX(math.ceil(getPacmanX()))
             setPacmanY(getPacmanY() - vel)
             setPacmanOrientation("Up")
+            if pacmanmode == "KILL":
+                killGhost("Up")
 
     elif direction == "Down":
-        if getPacmanY() < HEIGHT // CELL_SIZE - 1 and maze[int(getPacmanY()+vel)][math.ceil(getPacmanX())] != 1:
+        if getPacmanY() < HEIGHT // CELL_SIZE - 1 and maze[int(getPacmanY()+vel)][math.ceil(getPacmanX())] in [0, 1, 17]:
             setPacmanX(math.ceil(getPacmanX()))
             setPacmanY(getPacmanY() + vel)
             setPacmanOrientation("Down")
+            if pacmanmode == "KILL":
+                killGhost("Down")
 
 def move_ghost(ghost_pos, player_pos, ghost, maze, ghost_index):
     global ghost_delay_counter
@@ -242,7 +228,10 @@ def move_ghost(ghost_pos, player_pos, ghost, maze, ghost_index):
             possible_moves = [(move[0], move[1] % len(maze[0])) for move in possible_moves]
 
             # Filter out invalid moves (walls or out of bounds)
-            valid_moves = [move for move in possible_moves if maze[move[0]][move[1]] != 1]
+            valid_moves = list()
+            for move in possible_moves:
+                if 0 <= move[0] < len(maze) and 0 <= move[1] < len(maze[0]) and maze[move[0]][move[1]] in [0, 1, 17]:
+                    valid_moves.append(move)
 
             # Find the move that maximizes the distance from Pac-Man
             max_distance = -1
@@ -269,7 +258,7 @@ def move_ghost(ghost_pos, player_pos, ghost, maze, ghost_index):
     # If the delay threshold is not reached, return the current position
     return ghost_pos
 
-def killGhost():
+def killGhost(current_direction):
 
     def killAdjacent(dir = [0, 0]):
          
@@ -300,6 +289,3 @@ def killGhost():
     if current_direction == "Down":
         dir = [0, -1]
         killAdjacent(dir)
-
-''' 4. Main Game Loop'''
-

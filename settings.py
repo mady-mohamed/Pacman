@@ -7,6 +7,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("Pac-Man")
 
 image = pygame.image.load('pacman_right.png')
+hor_wall = pygame.transform.scale((pygame.image.load('wall-straight-horiz.gif')), (CELL_SIZE, CELL_SIZE))
 pygame.display.set_icon(image)
 
 # Colors
@@ -28,32 +29,37 @@ mazePotZeroCount = 0 # Potential count for current level empty cells
 mazeZeroCount = 0   # Current count for empty cells
 mazeLevel = 1
 
+# 0 - Dot, 1 - Pellet, 2 - top left corner, 3 - top right corner, 4 - bottom right corner, 5 - bottom left corner, 6 - horizontal wall
+# 7 - vertical wall, 8 - wall end bottom, 9 - wall end left, 10 - wall end right, 11 - wall end top, 12 - bottom T, 13 - left T, 14 - right T
+# 15 - Top T, 16 - Wall X
+
+
 
 
 def getMazeDesign(level):
     global maze
     level1maze = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1],
-    [3, 3, 3, 1, 0, 1, 0, 2, 0, 0, 0, 0, 0, 1, 0, 1, 3, 3, 3],
-    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [3, 3, 3, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 3, 3, 3],
-    [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-    [1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1],
-    [1, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 6, 6, 6, 6, 6, 6, 6, 6, 15, 6, 6, 6, 6, 6, 6, 6, 6, 3],
+    [7, 17, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+    [7, 0, 9, 10, 0, 9, 6, 10, 0, 8, 0, 9, 6, 10, 0, 9, 10, 0, 7],
+    [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+    [7, 0, 9, 10, 0, 11, 0, 9, 6, 15, 6, 10, 1, 11, 0, 9, 10, 0, 7],
+    [7, 0, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 0, 7],
+    [5, 6, 6, 3, 0, 13, 6, 10, 0, 8, 0, 9, 6, 14, 0, 2, 6, 6, 4],
+    [17, 17, 17, 7, 0, 7, 0, 1, 0, 0, 0, 0, 0, 7, 0, 7, 17, 17, 17],
+    [6, 6, 6, 4, 0, 8, 0, 2, 10, 17, 9, 3, 0, 8, 0, 5, 6, 6, 6],
+    [0, 0, 0, 0, 0, 0, 0, 7, 17, 17, 17, 7, 0, 0, 0, 0, 0, 0, 0],
+    [6, 6, 6, 3, 0, 11, 0, 5, 6, 6, 6, 4, 0, 11, 0, 2, 6, 6, 6],
+    [17, 17, 17, 7, 0, 7, 0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 17, 17, 17],
+    [2, 6, 6, 4, 0, 8, 0, 9, 6, 15, 6, 10, 0, 8, 0, 5, 6, 6, 3],
+    [7, 0, 0, 0, 0, 0, 0, 1, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+    [7, 0, 9, 3, 0, 9, 6, 10, 0, 8, 0, 9, 6, 10, 0, 2, 10, 0, 7],
+    [7, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 7],
+    [13, 10, 0, 8, 0, 11, 0, 9, 6, 15, 6, 10, 0, 11, 0, 8, 0, 9, 14],
+    [7, 1, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 0, 7],
+    [7, 0, 9, 6, 6, 12, 6, 10, 0, 8, 0, 9, 6, 12, 6, 6, 10, 0, 7],
+    [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7],
+    [5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4],
 ]
     pellet = 0
     for row in range(len(level1maze)):
@@ -77,19 +83,63 @@ def getMazeDesign(level):
         return level1maze
 
 # Function to draw the maze
+# def draw_maze(mazeLevel = getMazeDesign("Level1")):
+#     for row in range(len(mazeLevel)):
+#         for col in range(len(mazeLevel[row])):
+#             x = col * CELL_SIZE
+#             y = row * CELL_SIZE
+#             if mazeLevel[row][col] == 1:  # Wall
+#                 pygame.draw.rect(screen, BLUE, (x, y, CELL_SIZE, CELL_SIZE))
+#                 # screen.blit(hor_wall, (x, y))
+            
+#             elif mazeLevel[row][col] == 2:  # Pellet
+#                 pygame.draw.circle(
+#                     screen, WHITE, (col * CELL_SIZE + CELL_SIZE // 2, row * CELL_SIZE + CELL_SIZE // 2), 5
+#                 )
+
+
+''''''
+
+# Function to draw the maze
 def draw_maze(mazeLevel = getMazeDesign("Level1")):
+    wall_images = {
+        2: 'wall-corner-ul.gif',
+        3: 'wall-corner-ur.gif',
+        4: 'wall-corner-lr.gif',
+        5: 'wall-corner-ll.gif',
+        6: 'wall-straight-horiz.gif',
+        7: 'wall-straight-vert.gif',
+        8: 'wall-end-b.gif',
+        9: 'wall-end-l.gif',
+        10: 'wall-end-r.gif',
+        11: 'wall-end-t.gif',
+        12: 'wall-t-bottom.gif',
+        13: 'wall-t-left.gif',
+        14: 'wall-t-right.gif',
+        15: 'wall-t-top.gif',
+        16: 'wall-x.gif'
+    }
+
     for row in range(len(mazeLevel)):
         for col in range(len(mazeLevel[row])):
             x = col * CELL_SIZE
             y = row * CELL_SIZE
-            if mazeLevel[row][col] == 1:  # Wall
-                pygame.draw.rect(screen, BLUE, (x, y, CELL_SIZE, CELL_SIZE))
-            elif mazeLevel[row][col] == 0:  # Dot
+            cell_value = mazeLevel[row][col]
+
+            if cell_value == 0:  # Dot
                 pygame.draw.circle(
                     screen, WHITE, (col * CELL_SIZE + CELL_SIZE // 2, row * CELL_SIZE + CELL_SIZE // 2), 2
                 )
-            elif mazeLevel[row][col] == 2:  # Pellet
+            elif cell_value == 1:  # Pellet
                 pygame.draw.circle(
                     screen, WHITE, (col * CELL_SIZE + CELL_SIZE // 2, row * CELL_SIZE + CELL_SIZE // 2), 5
                 )
-
+            elif cell_value in wall_images:
+                try:
+                    wallImage = pygame.image.load(wall_images[cell_value])
+                    wallImage = pygame.transform.scale(wallImage, (CELL_SIZE, CELL_SIZE))
+                    screen.blit(wallImage, (x, y))
+                except pygame.error as e:
+                    print(f"Error loading image {wall_images[cell_value]}: {e}")
+            elif cell_value == 17:  # Empty
+                pass

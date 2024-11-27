@@ -23,19 +23,19 @@ def pacman_main():
         if keys[pygame.K_LEFT]:
             main.current_direction = "Left"
             if main.pacmanmode == "KILL":
-                main.killGhost()
+                main.killGhost("Left")
         elif keys[pygame.K_RIGHT]:
             main.current_direction = "Right"
             if main.pacmanmode == "KILL":
-                main.killGhost()
+                main.killGhost("Right")
         elif keys[pygame.K_UP]:
             main.current_direction = "Up"
             if main.pacmanmode == "KILL":
-                main.killGhost()
+                main.killGhost("Up")
         elif keys[pygame.K_DOWN]:
             main.current_direction = "Down"
             if main.pacmanmode == "KILL":
-                main.killGhost()
+                main.killGhost("Down")
 
         # Move Pac-Man in the current direction
         if main.current_direction:
@@ -43,13 +43,13 @@ def pacman_main():
 
         # Update maze state for Pac-Man's position
         if maze[main.getPacmanY()][main.getPacmanX()] == 0:
-            maze[main.getPacmanY()][main.getPacmanX()] = 3
+            maze[main.getPacmanY()][main.getPacmanX()] = 17
             main.setPacmanScore(main.getPacmanScore() + 10)
-        elif maze[main.getPacmanY()][main.getPacmanX()] == 2:
+        elif maze[main.getPacmanY()][main.getPacmanX()] == 1:
             main.setPacmanMode("KILL")
             main.setPacmanScore(main.getPacmanScore() + 50)
             kill_mode_timer = pygame.time.get_ticks() + 10000  # Set timer for 10 seconds
-            maze[main.getPacmanY()][main.getPacmanX()] = 3
+            maze[main.getPacmanY()][main.getPacmanX()] = 17
 
         # Move the ghosts
         main.ghosts[0][0], main.ghosts[0][1] = main.move_ghost((main.ghosts[0][0], main.ghosts[0][1]), (main.getPacmanY(), main.getPacmanX()), main.ghosts[0][3], maze, 0)
@@ -63,7 +63,7 @@ def pacman_main():
             pacman_y = main.getPacmanY()
             pacman_pos = (pacman_y, pacman_x)
             main.setGhostState(screen, "VULNERABLE")
-            main.killGhost()
+            # main.killGhost()
             # Check if the timer has expired to switch back to normal mode
             if pygame.time.get_ticks() > kill_mode_timer:
                 main.setPacmanMode("normal")
@@ -92,7 +92,6 @@ def pacman_main():
                     main.mazeZeroCount += 1
         if main.mazePotZeroCount > main.mazeZeroCount: 
             main.draw_maze(maze)
-            print(main.mazePotZeroCount, main.mazeZeroCount, main.mazeLevel)
             main.mazePotZeroCount, main.mazeZeroCount = 0, 0
     
             
