@@ -14,10 +14,10 @@ BLACK = (0, 0, 0)
 
 # Set up the display
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Pacman Main Menu")
+pygame.display.set_caption("Pacman Launcher")
 
 # Load the background image
-background_image = pygame.image.load('menu.png')
+background_image = pygame.image.load('resources/menu.png')
 
 # Fonts
 font = pygame.font.Font(None, 74)

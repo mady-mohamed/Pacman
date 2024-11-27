@@ -6,8 +6,8 @@ CELL_SIZE = 20
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("Pac-Man")
 
-image = pygame.image.load('pacman_right.png')
-hor_wall = pygame.transform.scale((pygame.image.load('wall-straight-horiz.gif')), (CELL_SIZE, CELL_SIZE))
+image = pygame.image.load('resources/pacman_right.png')
+hor_wall = pygame.transform.scale((pygame.image.load('resources/wall-straight-horiz.gif')), (CELL_SIZE, CELL_SIZE))
 pygame.display.set_icon(image)
 
 # Colors
@@ -103,21 +103,21 @@ def getMazeDesign(level):
 # Function to draw the maze
 def draw_maze(mazeLevel = getMazeDesign("Level1")):
     wall_images = {
-        2: 'wall-corner-ul.gif',
-        3: 'wall-corner-ur.gif',
-        4: 'wall-corner-lr.gif',
-        5: 'wall-corner-ll.gif',
-        6: 'wall-straight-horiz.gif',
-        7: 'wall-straight-vert.gif',
-        8: 'wall-end-b.gif',
-        9: 'wall-end-l.gif',
-        10: 'wall-end-r.gif',
-        11: 'wall-end-t.gif',
-        12: 'wall-t-bottom.gif',
-        13: 'wall-t-left.gif',
-        14: 'wall-t-right.gif',
-        15: 'wall-t-top.gif',
-        16: 'wall-x.gif'
+        2: 'resources/wall-corner-ul.gif',
+        3: 'resources/wall-corner-ur.gif',
+        4: 'resources/wall-corner-lr.gif',
+        5: 'resources/wall-corner-ll.gif',
+        6: 'resources/wall-straight-horiz.gif',
+        7: 'resources/wall-straight-vert.gif',
+        8: 'resources/wall-end-b.gif',
+        9: 'resources/wall-end-l.gif',
+        10: 'resources/wall-end-r.gif',
+        11: 'resources/wall-end-t.gif',
+        12: 'resources/wall-t-bottom.gif',
+        13: 'resources/wall-t-left.gif',
+        14: 'resources/wall-t-right.gif',
+        15: 'resources/wall-t-top.gif',
+        16: 'resources/wall-x.gif'
     }
 
     for row in range(len(mazeLevel)):

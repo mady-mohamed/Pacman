@@ -12,20 +12,20 @@ from settings import getMazeDesign, draw_maze
 def setPacmanOrientation(direction):
     global image  # Declare image as global to modify the global variable
     if direction == 'Up':
-        image = pygame.image.load('pacman_up.png')
+        image = pygame.image.load('resources/pacman_up.png')
     elif direction == 'Right':
-        image = pygame.image.load('pacman_right.png')
+        image = pygame.image.load('resources/pacman_right.png')
     elif direction == 'Down':
-        image = pygame.image.load('pacman_down.png')
+        image = pygame.image.load('resources/pacman_down.png')
     elif direction == 'Left':
-        image = pygame.image.load('pacman_left.png')
+        image = pygame.image.load('resources/pacman_left.png')
     else:
         print("pacman orient error")
 
 def draw_lives(screen):
     for i in range(pacman_lives):
         # Scale the image to a smaller size for the lives display
-        lives_image = pygame.image.load("pacman_right.png")
+        lives_image = pygame.image.load("resources/pacman_right.png")
         scaled_image = pygame.transform.scale(lives_image, (CELL_SIZE // 2, CELL_SIZE // 2))
         # Calculate the position for each life icon
         x_lives = i * (CELL_SIZE // 2 + 5)  # Add some spacing between icons
@@ -111,15 +111,15 @@ def draw_ghosts(ghosts, screen):
         row, col, color, accuracy, idle, idle_timer = ghost
         global ghost_img
         if color == RED:
-            ghost_img = pygame.image.load('ghost_red.png')
+            ghost_img = pygame.image.load('resources/ghost_red.png')
         elif color == CYAN:
-            ghost_img = pygame.image.load('ghost_cyan.png')
+            ghost_img = pygame.image.load('resources/ghost_cyan.png')
         elif color == PINK:
-            ghost_img = pygame.image.load('ghost_pink.png')
+            ghost_img = pygame.image.load('resources/ghost_pink.png')
         elif color == ORANGE:
-            ghost_img = pygame.image.load('ghost_orange.png')
+            ghost_img = pygame.image.load('resources/ghost_orange.png')
         else:
-            ghost_img = pygame.image.load('ghost_vulnerable.png')
+            ghost_img = pygame.image.load('resources/ghost_vulnerable.png')
         ghost_img = pygame.transform.scale(ghost_img, (CELL_SIZE, CELL_SIZE))
         x = col * CELL_SIZE
         y = row * CELL_SIZE
