@@ -1,3 +1,38 @@
+"""
+Pacman Game Settings Module
+
+This module contains the maze design and other game settings for the Pacman game.
+It provides functions to retrieve maze designs for different levels and counts the number of pellets in the maze.
+
+Key Features:
+- Defines the maze layout for different levels
+- Counts the number of pellets in the maze
+- Provides functions to retrieve maze designs for different levels
+
+Dependencies:
+- pygame: Library for creating video games
+
+Maze Legend:
+- 0: Dot
+- 1: Pellet
+- 2: Top left corner
+- 3: Top right corner
+- 4: Bottom right corner
+- 5: Bottom left corner
+- 6: Horizontal wall
+- 7: Vertical wall
+- 8: Wall end bottom
+- 9: Wall end left
+- 10: Wall end right
+- 11: Wall end top
+- 12: Bottom T
+- 13: Left T
+- 14: Right T
+- 15: Top T
+- 16: Wall X
+- 17: Empty space
+"""
+
 import pygame
 
 # Screen dimensions
@@ -33,72 +68,49 @@ mazeLevel = 1
 # 7 - vertical wall, 8 - wall end bottom, 9 - wall end left, 10 - wall end right, 11 - wall end top, 12 - bottom T, 13 - left T, 14 - right T
 # 15 - Top T, 16 - Wall X
 
-
-
-
 def getMazeDesign(level):
-    global maze
     level1maze = [
-    [2, 6, 6, 6, 6, 6, 6, 6, 6, 15, 6, 6, 6, 6, 6, 6, 6, 6, 3],
-    [7, 17, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 7],
-    [7, 0, 9, 10, 0, 9, 6, 10, 0, 8, 0, 9, 6, 10, 0, 9, 10, 0, 7],
-    [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],
-    [7, 0, 9, 10, 0, 11, 0, 9, 6, 15, 6, 10, 1, 11, 0, 9, 10, 0, 7],
-    [7, 0, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 0, 7],
-    [5, 6, 6, 3, 0, 13, 6, 10, 0, 8, 0, 9, 6, 14, 0, 2, 6, 6, 4],
-    [17, 17, 17, 7, 0, 7, 0, 1, 0, 0, 0, 0, 0, 7, 0, 7, 17, 17, 17],
-    [6, 6, 6, 4, 0, 8, 0, 2, 10, 17, 9, 3, 0, 8, 0, 5, 6, 6, 6],
-    [0, 0, 0, 0, 0, 0, 0, 7, 17, 17, 17, 7, 0, 0, 0, 0, 0, 0, 0],
-    [6, 6, 6, 3, 0, 11, 0, 5, 6, 6, 6, 4, 0, 11, 0, 2, 6, 6, 6],
-    [17, 17, 17, 7, 0, 7, 0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 17, 17, 17],
-    [2, 6, 6, 4, 0, 8, 0, 9, 6, 15, 6, 10, 0, 8, 0, 5, 6, 6, 3],
-    [7, 0, 0, 0, 0, 0, 0, 1, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 7],
-    [7, 0, 9, 3, 0, 9, 6, 10, 0, 8, 0, 9, 6, 10, 0, 2, 10, 0, 7],
-    [7, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 7],
-    [13, 10, 0, 8, 0, 11, 0, 9, 6, 15, 6, 10, 0, 11, 0, 8, 0, 9, 14],
-    [7, 1, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 0, 7],
-    [7, 0, 9, 6, 6, 12, 6, 10, 0, 8, 0, 9, 6, 12, 6, 6, 10, 0, 7],
-    [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7],
-    [5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4],
-]
+        [2, 6, 6, 6, 6, 6, 6, 6, 6, 15, 6, 6, 6, 6, 6, 6, 6, 6, 3],
+        [7, 17, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+        [7, 0, 9, 10, 0, 9, 6, 10, 0, 8, 0, 9, 6, 10, 0, 9, 10, 0, 7],
+        [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+        [7, 0, 9, 10, 0, 11, 0, 9, 6, 15, 6, 10, 0, 11, 0, 9, 10, 0, 7],
+        [7, 0, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 0, 7],
+        [5, 6, 6, 3, 0, 13, 6, 10, 0, 8, 0, 9, 6, 14, 0, 2, 6, 6, 4],
+        [17, 17, 17, 7, 0, 7, 0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 17, 17, 17],
+        [6, 6, 6, 4, 0, 8, 0, 2, 10, 17, 9, 3, 0, 8, 0, 5, 6, 6, 6],
+        [0, 0, 0, 0, 0, 0, 0, 7, 17, 17, 17, 7, 0, 0, 0, 0, 0, 0, 0],
+        [6, 6, 6, 3, 0, 11, 0, 5, 6, 6, 6, 4, 0, 11, 0, 2, 6, 6, 6],
+        [17, 17, 17, 7, 0, 7, 0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 17, 17, 17],
+        [2, 6, 6, 4, 0, 8, 0, 9, 6, 15, 6, 10, 0, 8, 0, 5, 6, 6, 3],
+        [7, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+        [7, 0, 9, 3, 0, 9, 6, 10, 0, 8, 0, 9, 6, 10, 0, 2, 10, 0, 7],
+        [7, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 7],
+        [13, 10, 0, 8, 0, 11, 0, 9, 6, 15, 6, 10, 0, 11, 0, 8, 0, 9, 14],
+        [7, 0, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 0, 7],
+        [7, 0, 9, 6, 6, 12, 6, 10, 0, 8, 0, 9, 6, 12, 6, 6, 10, 0, 7],
+        [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7],
+        [5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4],
+    ]
     pellet = 0
     for row in range(len(level1maze)):
         for col in range(len(level1maze[0])):
-            if level1maze[row][col] == 2:
+            if level1maze[row][col] == 1:
                 pellet += 1
 
-    
     if level == "Level1":
         return level1maze
     elif level == "Level2":
         level2maze = [row[:] for row in level1maze]  # Create a copy of level1maze
         for row in range(len(level1maze)):
             for col in range(len(level1maze[0])):
-                if level1maze[row][col] == 2 and pellet > 3:
+                if level1maze[row][col] == 1 and pellet > 3:
                     level2maze[row][col] = 0
                     pellet = max(0, pellet - 1)  # Ensure pellet does not go negative
         return level2maze
     else:
         print("Invalid Maze Input", level)
         return level1maze
-
-# Function to draw the maze
-# def draw_maze(mazeLevel = getMazeDesign("Level1")):
-#     for row in range(len(mazeLevel)):
-#         for col in range(len(mazeLevel[row])):
-#             x = col * CELL_SIZE
-#             y = row * CELL_SIZE
-#             if mazeLevel[row][col] == 1:  # Wall
-#                 pygame.draw.rect(screen, BLUE, (x, y, CELL_SIZE, CELL_SIZE))
-#                 # screen.blit(hor_wall, (x, y))
-            
-#             elif mazeLevel[row][col] == 2:  # Pellet
-#                 pygame.draw.circle(
-#                     screen, WHITE, (col * CELL_SIZE + CELL_SIZE // 2, row * CELL_SIZE + CELL_SIZE // 2), 5
-#                 )
-
-
-''''''
 
 # Function to draw the maze
 def draw_maze(mazeLevel = getMazeDesign("Level1")):
