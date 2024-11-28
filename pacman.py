@@ -1,22 +1,3 @@
-"""
-Pacman Game Main Module
-
-This module initializes and runs the main game loop for the Pacman game.
-It handles user input, updates the game state, and renders the game screen.
-
-Key Features:
-- Initializes the game screen and settings
-- Handles user input for Pacman movement
-- Updates the game state based on user input and game logic
-- Renders the game screen with updated positions of Pacman, ghosts, and maze elements
-- Manages game events such as quitting the game
-
-Dependencies:
-- init: Contains initial game settings and configurations
-- pygame: Library for creating video games
-- settings: Contains maze design and other game settings
-"""
-
 import init, pygame, settings
 
 maze = settings.getMazeDesign("Level1")

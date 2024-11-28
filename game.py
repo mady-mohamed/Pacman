@@ -1,37 +1,5 @@
 import pygame, heapq, random
-"""
-Pacman Game Logic Module
 
-This module contains the core game logic for the Pacman game.
-It manages the state of Pacman, ghosts, and other game elements.
-It also handles the movement and interactions of Pacman and ghosts.
-
-Key Features:
-- Manages Pacman's position, direction, and mode
-- Handles ghost movement and state
-- Updates game state based on interactions between Pacman and ghosts
-- Maintains game variables such as score, lives, and timers
-
-Dependencies:
-- pygame: Library for creating video games
-- heapq: Library for priority queue operations
-- random: Library for generating random numbers
-
-Global Variables:
-- pacman_lives: Number of lives Pacman has
-- pacmanDir: Direction of Pacman's movement
-- pacman_score: Current score of the game
-- ghost_delay_counter: Counter for delaying ghost movement
-- GHOST_DELAY: Number of ticks to delay the movement for all ghosts
-- pacmanmode: Current mode of Pacman (normal or kill)
-- ghost_respawn_timer: Timer for ghost respawn
-- current_direction: Current direction of Pacman's movement
-- pacmanX, pacmanY: Current position of Pacman
-
-Functions:
-- getPacmanX: Returns the current X position of Pacman
-- setPacmanX: Sets the X position of Pacman
-"""
 # Pac-Man position
 
 pacman_lives = 2

@@ -1,38 +1,3 @@
-"""
-Pacman Game Settings Module
-
-This module contains the maze design and other game settings for the Pacman game.
-It provides functions to retrieve maze designs for different levels and counts the number of pellets in the maze.
-
-Key Features:
-- Defines the maze layout for different levels
-- Counts the number of pellets in the maze
-- Provides functions to retrieve maze designs for different levels
-
-Dependencies:
-- pygame: Library for creating video games
-
-Maze Legend:
-- 0: Dot
-- 1: Pellet
-- 2: Top left corner
-- 3: Top right corner
-- 4: Bottom right corner
-- 5: Bottom left corner
-- 6: Horizontal wall
-- 7: Vertical wall
-- 8: Wall end bottom
-- 9: Wall end left
-- 10: Wall end right
-- 11: Wall end top
-- 12: Bottom T
-- 13: Left T
-- 14: Right T
-- 15: Top T
-- 16: Wall X
-- 17: Empty space
-"""
-
 import pygame
 
 # Screen dimensions
