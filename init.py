@@ -4,6 +4,43 @@ import heapq
 import time
 import random
 
+"""
+Pacman Game Initialization Module
+
+This module contains the initialization and setup functions for the Pacman game.
+It handles the construction of the game, including setting up the game screen,
+loading resources, and initializing game variables.
+
+Key Features:
+- Initializes game settings and configurations
+- Loads resources such as images and sounds
+- Sets up initial positions and states for Pacman and ghosts
+- Provides utility functions for game operations
+
+Dependencies:
+- pygame: Library for creating video games
+- sys: Provides access to system-specific parameters and functions
+- math: Provides mathematical functions
+- copy: Provides functions for copying objects
+- heapq: Library for priority queue operations
+- time: Provides time-related functions
+- random: Library for generating random numbers
+- settings: Contains game settings and constants
+
+Global Variables:
+- CELL_SIZE: Size of each cell in the maze
+- HEIGHT: Height of the game screen
+- WIDTH: Width of the game screen
+- VULNERABLE: State of ghosts when they can be eaten by Pacman
+- RED, CYAN, PINK, ORANGE: Colors representing different ghosts
+- BLACK: Color representing the background
+- image: Current image of Pacman based on its orientation
+
+Functions:
+- setPacmanOrientation: Sets the orientation of Pacman based on the direction
+- draw_lives: Draws the remaining lives of Pacman on the screen
+"""
+
 ''' 1. Initialization and Setup Functions (Constructing the Game)'''
 
 from settings import CELL_SIZE, HEIGHT, VULNERABLE, RED, CYAN, PINK, ORANGE, BLACK, WIDTH, image

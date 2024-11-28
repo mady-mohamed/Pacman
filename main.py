@@ -1,6 +1,35 @@
 import pygame, pacman
 import sys
 
+"""
+Pacman Game Main Menu Module
+
+This module initializes and runs the main menu for the Pacman game.
+It handles user input for menu navigation and starts the game when selected.
+
+Key Features:
+- Initializes the main menu screen
+- Handles user input for navigating the menu
+- Starts the game when "Start Game" is selected
+- Quits the game when "Quit" is selected
+
+Dependencies:
+- pygame: Library for creating video games
+- pacman: Contains the main game loop and game logic
+- sys: Provides access to system-specific parameters and functions
+
+Global Variables:
+- SCREEN_WIDTH: Width of the main menu screen
+- SCREEN_HEIGHT: Height of the main menu screen
+- WHITE: Color value for white
+- BLACK: Color value for black
+- screen: Pygame display surface for the main menu
+- background_image: Background image for the main menu
+- font: Font for the main menu options
+- small_font: Font for smaller text in the main menu
+- menu_options: List of options available in the main menu
+"""
+
 # Initialize Pygame
 pygame.init()
 

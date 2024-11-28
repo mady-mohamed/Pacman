@@ -128,6 +128,7 @@ def pacman_main():
             settings.mazeLevel += 1
             settings.mazePotZeroCount, settings.mazeZeroCount = 0, 0
         if settings.mazeLevel > 2:
+            exec(open('main.py').read())
             running = False
         
         # Redraw the screen
