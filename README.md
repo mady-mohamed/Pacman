@@ -1,6 +1,6 @@
 # Pacman
 
-This repository contains the implementation of the classic Pacman game using Python.
+This repository contains the implementation of the classic Pacman game using Python using a simple A* algorithm.
 
 # Pacman Game Main Menu Module
 
