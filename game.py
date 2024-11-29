@@ -48,7 +48,7 @@ def setPacmanScore(value):
     pacman_score = value
 
 
-
+# Calculate Heuristic Function
 def heuristic(a, b, ghost):
     (x1, y1) = a
     (x2, y2) = b
@@ -64,18 +64,33 @@ def heuristic(a, b, ghost):
         return distance * random.uniform(1.75, 2)
 
 def astar(start, goal, maze, ghost):
+    """
+    A* pathfinding algorithm to find the shortest path from start to goal in a maze.
+    
+    Parameters:
+    - start: Tuple (x, y) representing the starting position.
+    - goal: Tuple (x, y) representing the goal position.
+    - maze: 2D list representing the maze where 0, 1, and 17 are traversable cells.
+    - ghost: Position of the ghost (used in the heuristic function).
+    
+    Returns:
+    - List of tuples representing the path from start to goal, or None if no path is found.
+    """
+    # Initialize a heap to apply algorithm
     open_list = []
     heapq.heapify(open_list)
-    heapq.heappush(open_list, (0, start))
+    heapq.heappush(open_list, (0, start)) # Initialize with cost (0) and coordinates corresponding to the maze
     
-    came_from = {}
-    g_score = {start: 0}
-    f_score = {start: heuristic(start, goal, ghost)}
+    came_from = {} # Dictionary to keep track of path
+    cost_score = {start: 0} # Dictionary to track score of each move
+    astar_score = {start: heuristic(start, goal, ghost)} # Dictionary to document the heuristic function of each move
     
     while open_list:
-        current = heapq.heappop(open_list)[1]
+        current = heapq.heappop(open_list)[1] # pop lowest astar value in list
         
-        if current == goal:
+
+        # If current move reaches goal, path will be returned
+        if current == goal: 
             path = []
             while current in came_from:
                 path.append(current)
@@ -85,14 +100,17 @@ def astar(start, goal, maze, ghost):
             return path
         
         for direction in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
-            neighbor = (current[0] + direction[0], current[1] + direction[1])
+            neighbor = (current[0] + direction[0], current[1] + direction[1]) # Modify x,y based on position of next move
+            # Check if x coordinate movement is within bounds of maze
+            # and if it is a legal move
             if 0 <= neighbor[0] < len(maze) and 0 <= neighbor[1] < len(maze[0]) and maze[neighbor[0]][neighbor[1]] in [0, 1, 17]:
-                tentative_g_score = g_score[current] + 1
-                
-                if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                    came_from[neighbor] = current
-                    g_score[neighbor] = tentative_g_score
-                    f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal, ghost)
-                    heapq.heappush(open_list, (f_score[neighbor], neighbor))
+                cost = cost_score[current] + 1
+                # checks if neighbor move (node) has not been visited in the cost_score dictionary, in other words first time algorithm is encountering this node
+                # or if newly calculated cost is lower than last recorded cost
+                if neighbor not in cost_score or cost < cost_score[neighbor]: 
+                    came_from[neighbor] = current  # Record the path: the current node is the predecessor of the neighbor
+                    cost_score[neighbor] = cost  # Update the cost to reach the neighbor
+                    astar_score[neighbor] = cost + heuristic(neighbor, goal, ghost)  # Calculate the A* score (cost + heuristic) for the neighbor
+                    heapq.heappush(open_list, (astar_score[neighbor], neighbor))  # Push the neighbor with its A* score onto the priority queue
     
     return None
