@@ -99,18 +99,19 @@ def astar(start, goal, maze, ghost):
             path.reverse()
             return path
         
-        for direction in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
-            neighbor = (current[0] + direction[0], current[1] + direction[1]) # Modify x,y based on position of next move
-            # Check if x coordinate movement is within bounds of maze
-            # and if it is a legal move
-            if 0 <= neighbor[0] < len(maze) and 0 <= neighbor[1] < len(maze[0]) and maze[neighbor[0]][neighbor[1]] in [0, 1, 17]:
-                cost = cost_score[current] + 1
-                # checks if neighbor move (node) has not been visited in the cost_score dictionary, in other words first time algorithm is encountering this node
-                # or if newly calculated cost is lower than last recorded cost
-                if neighbor not in cost_score or cost < cost_score[neighbor]: 
-                    came_from[neighbor] = current  # Record the path: the current node is the predecessor of the neighbor
-                    cost_score[neighbor] = cost  # Update the cost to reach the neighbor
-                    astar_score[neighbor] = cost + heuristic(neighbor, goal, ghost)  # Calculate the A* score (cost + heuristic) for the neighbor
-                    heapq.heappush(open_list, (astar_score[neighbor], neighbor))  # Push the neighbor with its A* score onto the priority queue
-    
+
+        else:
+
+            for direction in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+                neighbor = (current[0] + direction[0], current[1] + direction[1]) # Modify x,y based on position of next move
+                # Check if x coordinate movement is within bounds of maze and if it is a legal move
+                if 0 <= neighbor[0] < len(maze) and 0 <= neighbor[1] < len(maze[0]) and maze[neighbor[0]][neighbor[1]] in [0, 1, 17]:
+                    cost = cost_score[current] + 1
+                    # checks if neighbor move (node) has not been visited in the cost_score dictionary, in other words first time algorithm is encountering this node or if newly calculated cost is lower than last recorded cost
+                    if neighbor not in cost_score or cost < cost_score[neighbor]: 
+                        came_from[neighbor] = current  # Record the path: the current node is the predecessor of the neighbor
+                        cost_score[neighbor] = cost  # Update the cost to reach the neighbor
+                        astar_score[neighbor] = cost + heuristic(neighbor, goal, ghost)  # Calculate the A* score (cost + heuristic) for the neighbor
+                        heapq.heappush(open_list, (astar_score[neighbor], neighbor))  # Push the neighbor with its A* score onto the priority queue
+        
     return None
