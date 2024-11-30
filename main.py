@@ -58,7 +58,6 @@ def main():
                 elif event.key == pygame.K_RETURN:
                     if selected_option == 0:
                         print("Start Game selected")
-                        # Add code to start the game
                         pacman.pacman_main()
                         running = False
 
