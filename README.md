@@ -1,6 +1,6 @@
 # Pacman
 
-This repository contains the implementation of the classic Pacman game using Python.
+This repository contains the implementation of the classic Pacman game using Python using a simple A* algorithm.
 
 # Pacman Game Main Menu Module
 
@@ -17,17 +17,6 @@ Dependencies:
 - pygame: Library for creating video games
 - pacman: Contains the main game loop and game logic
 - sys: Provides access to system-specific parameters and functions
-
-Global Variables:
-- SCREEN_WIDTH: Width of the main menu screen
-- SCREEN_HEIGHT: Height of the main menu screen
-- WHITE: Color value for white
-- BLACK: Color value for black
-- screen: Pygame display surface for the main menu
-- background_image: Background image for the main menu
-- font: Font for the main menu options
-- small_font: Font for smaller text in the main menu
-- menu_options: List of options available in the main menu
 
 # Pacman Game Initialization Module
 
@@ -51,15 +40,6 @@ Dependencies:
 - random: Library for generating random numbers
 - settings: Contains game settings and constants
 
-Global Variables:
-- CELL_SIZE: Size of each cell in the maze
-- HEIGHT: Height of the game screen
-- WIDTH: Width of the game screen
-- VULNERABLE: State of ghosts when they can be eaten by Pacman
-- RED, CYAN, PINK, ORANGE: Colors representing different ghosts
-- BLACK: Color representing the background
-- image: Current image of Pacman based on its orientation
-
 Functions:
 - setPacmanOrientation: Sets the orientation of Pacman based on the direction
 - draw_lives: Draws the remaining lives of Pacman on the screen
@@ -80,17 +60,6 @@ Dependencies:
 - pygame: Library for creating video games
 - heapq: Library for priority queue operations
 - random: Library for generating random numbers
-
-Global Variables:
-- pacman_lives: Number of lives Pacman has
-- pacmanDir: Direction of Pacman's movement
-- pacman_score: Current score of the game
-- ghost_delay_counter: Counter for delaying ghost movement
-- GHOST_DELAY: Number of ticks to delay the movement for all ghosts
-- pacmanmode: Current mode of Pacman (normal or kill)
-- ghost_respawn_timer: Timer for ghost respawn
-- current_direction: Current direction of Pacman's movement
-- pacmanX, pacmanY: Current position of Pacman
 
 Functions:
 - getPacmanX: Returns the current X position of Pacman
