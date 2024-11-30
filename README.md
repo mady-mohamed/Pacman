@@ -131,3 +131,4 @@ Maze Legend:
 # Proposed Changes
 
 - Implementation of game.py in C++, starting with the A* Algorithm
+- Change getMazeDesign function to take 2D list using legend 0 - Dot, 1 - Pellet, 2 - Empty, 3 - Wall and convert to current maze legend for better modifiability
