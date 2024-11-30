@@ -7,7 +7,7 @@ This repository contains the implementation of the classic Pacman game using Pyt
 Pac-man requires Python 3.x (tested on 3.12), only external libraries are pygame, and the corresponding version of the Pygame library in requirements.txt, freely available online. Make sure you install the matching (32- or 64-bit) version of Pygame as your Python installation. Run from main.py
 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ```
