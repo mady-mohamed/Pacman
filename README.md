@@ -14,6 +14,17 @@ pip install requirements.txt
 
 ![image](https://github.com/user-attachments/assets/ab45f6c2-2d38-4a72-b2d7-73c5d6c81114)
 
+# Dependencies
+
+
+Dependencies:
+- pygame: Library for creating video games
+- sys: Provides access to system-specific parameters and functions
+- math: Provides mathematical functions
+- copy: Provides functions for copying objects
+- heapq: Library for priority queue operations
+- time: Provides time-related functions
+- random: Library for generating random numbers
 
 # Pacman Game Main Menu Module
 
@@ -43,16 +54,6 @@ Key Features:
 - Sets up initial positions and states for Pacman and ghosts
 - Provides utility functions for game operations
 
-Dependencies:
-- pygame: Library for creating video games
-- sys: Provides access to system-specific parameters and functions
-- math: Provides mathematical functions
-- copy: Provides functions for copying objects
-- heapq: Library for priority queue operations
-- time: Provides time-related functions
-- random: Library for generating random numbers
-- settings: Contains game settings and constants
-
 Functions:
 - setPacmanOrientation: Sets the orientation of Pacman based on the direction
 - draw_lives: Draws the remaining lives of Pacman on the screen
@@ -68,11 +69,6 @@ Key Features:
 - Handles ghost movement and state
 - Updates game state based on interactions between Pacman and ghosts
 - Maintains game variables such as score, lives, and timers
-
-Dependencies:
-- pygame: Library for creating video games
-- heapq: Library for priority queue operations
-- random: Library for generating random numbers
 
 Functions:
 - getPacmanX: Returns the current X position of Pacman
@@ -90,11 +86,6 @@ Key Features:
 - Renders the game screen with updated positions of Pacman, ghosts, and maze elements
 - Manages game events such as quitting the game
 
-Dependencies:
-- init: Contains initial game settings and configurations
-- pygame: Library for creating video games
-- settings: Contains maze design and other game settings
-
 # Pacman Game Settings Module
 
 This module contains the maze design and other game settings for the Pacman game.
@@ -104,9 +95,6 @@ Key Features:
 - Defines the maze layout for different levels
 - Counts the number of pellets in the maze
 - Provides functions to retrieve maze designs for different levels
-
-Dependencies:
-- pygame: Library for creating video games
 
 Maze Legend:
 - 0: Dot
