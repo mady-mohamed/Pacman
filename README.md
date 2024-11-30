@@ -2,6 +2,19 @@
 
 This repository contains the implementation of the classic Pacman game using Python using a simple A* algorithm.
 
+# Installation
+
+Pac-man requires Python 3.x (tested on 3.12), and the corresponding version of the Pygame library in requirements.txt, freely available online. Make sure you install the matching (32- or 64-bit) version of Pygame as your Python installation.
+
+```
+pip install requirements.txt
+```
+
+#
+
+![image](https://github.com/user-attachments/assets/ab45f6c2-2d38-4a72-b2d7-73c5d6c81114)
+
+
 # Pacman Game Main Menu Module
 
 This module initializes and runs the main menu for the Pacman game.
@@ -114,3 +127,7 @@ Maze Legend:
 - 15: Top T
 - 16: Wall X
 - 17: Empty space
+
+# Proposed Changes
+
+- Implementation of game.py in C++, starting with the A* Algorithm
