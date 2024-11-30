@@ -16,8 +16,6 @@ pip install requirements.txt
 
 # Dependencies
 
-
-Dependencies:
 - pygame: Library for creating video games
 - sys: Provides access to system-specific parameters and functions
 - math: Provides mathematical functions
