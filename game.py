@@ -113,5 +113,3 @@ def astar(start, goal, maze, ghost):
                         cost_score[neighbor] = cost  # Update the cost to reach the neighbor
                         astar_score[neighbor] = cost + heuristic(neighbor, goal, ghost)  # Calculate the A* score (cost + heuristic) for the neighbor
                         heapq.heappush(open_list, (astar_score[neighbor], neighbor))  # Push the neighbor with its A* score onto the priority queue
-        
-    return None
