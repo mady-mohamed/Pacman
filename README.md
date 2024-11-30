@@ -131,4 +131,55 @@ Maze Legend:
 # Proposed Changes
 
 - Implementation of game.py in C++, starting with the A* Algorithm
-- Change getMazeDesign function to take 2D list using legend 0 - Dot, 1 - Pellet, 2 - Empty, 3 - Wall and convert to current maze legend for better modifiability
+- Change getMazeDesign function to take 2D list using legend 0 - Dot, 1 - Pellet, 2 - Empty, 3 - Wall and convert to current maze legend for better modifiability like so:
+```
+# Maze Layout          0 - Dot 1 - Pellet 2 - Empty 3 - Wall
+maze = [
+[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+[3, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+[3, 0, 3, 3, 0, 3, 3, 3, 0, 3, 0, 3, 3, 3, 0, 3, 3, 0, 3],
+[3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+[3, 0, 3, 3, 0, 3, 0, 3, 3, 3, 3, 3, 1, 3, 0, 3, 3, 0, 3],
+[3, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 3],
+[3, 3, 3, 3, 0, 3, 3, 3, 0, 3, 0, 3, 3, 3, 0, 3, 3, 3, 3],
+[2, 2, 2, 3, 0, 3, 0, 1, 0, 0, 0, 0, 0, 3, 0, 3, 2, 2, 2],
+[3, 3, 3, 3, 0, 3, 0, 3, 3, 2, 3, 3, 0, 3, 0, 3, 3, 3, 3],
+[0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0],
+[3, 3, 3, 3, 0, 3, 0, 3, 3, 3, 3, 3, 0, 3, 0, 3, 3, 3, 3],
+[2, 2, 2, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 2, 2, 2],
+[3, 3, 3, 3, 0, 3, 0, 3, 3, 3, 3, 3, 0, 3, 0, 3, 3, 3, 3],
+[3, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+[3, 0, 3, 3, 0, 3, 3, 3, 0, 3, 0, 3, 3, 3, 0, 3, 3, 0, 3],
+[3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3],
+[3, 3, 0, 3, 0, 3, 0, 3, 3, 3, 3, 3, 0, 3, 0, 3, 0, 3, 3],
+[3, 1, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 3],
+[3, 0, 3, 3, 3, 3, 3, 3, 0, 3, 0, 3, 3, 3, 3, 3, 3, 0, 3],
+[3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3],
+[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+]
+
+count = 0
+visited = [[False for i in range(len(maze[0]))] for j in range(len(maze))]
+
+# Count top left corner cells (2)
+for row in range(len(maze)):
+    for col in range(len(maze[row])):  # Loop through each cell
+        if maze[row][col] == 3 and not visited[row][col]:  # check if wall and not visited
+            # Check if the current cell is not on the last row or last column
+            if row < len(maze) - 1 and col < len(maze[0]) - 1:
+                # Check if the cell to the right and the cell below are both 1
+                # and the cell to the left and the cell above are in [0, 2, 3]
+                if maze[row][col + 1] == 3 and maze[row + 1][col] == 3 and maze[row][col - 1] in [0, 1, 2] and maze[row - 1][col] in [0, 1, 2]:
+                    count += 1
+                    print(row, col)
+                    visited[row][col] = True  # Mark cells as visited
+                    visited[row][col + 1] = True
+                    visited[row + 1][col] = True 
+                    # maze[row][col] = 2
+                if row == 0 and col == 0:
+                    count += 1
+                    print(row, col)
+                    visited[row][col] = True  # Mark cells as visited
+                    visited[row][col + 1] = True
+                    visited[row + 1][col] = True
+```
