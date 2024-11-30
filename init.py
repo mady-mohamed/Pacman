@@ -271,16 +271,16 @@ def killGhost(current_direction):
     def killAdjacent(dir = [0, 0]):
          
         if (getPacmanY(), getPacmanX()) == (ghosts[0][0] + dir[0], ghosts[0][1] + dir[1]):
-            setGhostPos("RED", 8, 9)
+            setGhostPos("RED", 9, 9)
             setPacmanScore(getPacmanScore() + 200)
         elif (getPacmanY(), getPacmanX()) == (ghosts[1][0] + dir[0], ghosts[1][1] + dir[1]):
-            setGhostPos("CYAN", 10, 9)
+            setGhostPos("CYAN", 9, 9)
             setPacmanScore(getPacmanScore() + 200)
         elif (getPacmanY(), getPacmanX()) == (ghosts[2][0] + dir[0], ghosts[2][1] + dir[1]):
             setGhostPos("PINK", 9, 8)
             setPacmanScore(getPacmanScore() + 200)
         elif (getPacmanY(), getPacmanX()) == (ghosts[3][0] + dir[0], ghosts[3][1] + dir[1]):
-            setGhostPos("ORANGE", 9, 10)
+            setGhostPos("ORANGE", 9, 9)
             setPacmanScore(getPacmanScore() + 200)
 
     killAdjacent()

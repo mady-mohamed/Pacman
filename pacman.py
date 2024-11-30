@@ -76,10 +76,10 @@ def pacman_main():
             if pacman_pos == (init.ghosts[0][0], init.ghosts[0][1]) or pacman_pos == (init.ghosts[1][0], init.ghosts[1][1]) or pacman_pos == (init.ghosts[2][0], init.ghosts[2][1]) or pacman_pos == (init.ghosts[3][0], init.ghosts[3][1]):
                 init.setPacmanX(1)
                 init.setPacmanY(1)
-                init.setGhostPos("RED", 10, 8) #(9 8) (9 10) (8 9) (10 9)
-                init.setGhostPos("CYAN", 8, 10)
-                init.setGhostPos("PINK", 7, 9)
-                init.setGhostPos("ORANGE", 11, 9)
+                init.setGhostPos("RED", 9, 9) #(9 8) (9 10) (8 9) (10 9)
+                init.setGhostPos("CYAN", 9, 9)
+                init.setGhostPos("PINK", 9, 8)
+                init.setGhostPos("ORANGE", 9, 9)
                 init.pacman_lives -= 1
                 if init.pacman_lives < 0:
                     running = False
@@ -109,7 +109,6 @@ def pacman_main():
             settings.mazeLevel += 1
             settings.mazePotZeroCount, settings.mazeZeroCount = 0, 0
         if settings.mazeLevel > 2:
-            exec(open('main.py').read())
             running = False
         
         # Redraw the screen

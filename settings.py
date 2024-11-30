@@ -7,7 +7,6 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("Pac-Man")
 
 image = pygame.image.load('resources/pacman_right.png')
-hor_wall = pygame.transform.scale((pygame.image.load('resources/wall-straight-horiz.gif')), (CELL_SIZE, CELL_SIZE))
 pygame.display.set_icon(image)
 
 # Colors
@@ -21,7 +20,6 @@ CYAN = (0, 255, 255)
 ORANGE = (255, 165, 0)
 WHITE = (255, 255, 255)
 
-# Maze layout (1: wall, 0: dot, 2: pellet, 3: empty)
 global level1maze, level2maze
 level = "Level1"
 pellet = 0
