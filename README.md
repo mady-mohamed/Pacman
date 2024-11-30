@@ -10,7 +10,7 @@ Pac-man requires Python 3.x (tested on 3.12), only external libraries are pygame
 pip install requirements.txt
 ```
 
-#
+# Interface
 
 ![image](https://github.com/user-attachments/assets/ab45f6c2-2d38-4a72-b2d7-73c5d6c81114)
 
