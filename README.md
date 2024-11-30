@@ -38,11 +38,6 @@ Key Features:
 - Starts the game when "Start Game" is selected
 - Quits the game when "Quit" is selected
 
-Dependencies:
-- pygame: Library for creating video games
-- pacman: Contains the main game loop and game logic
-- sys: Provides access to system-specific parameters and functions
-
 # Pacman Game Initialization Module
 
 This module contains the initialization and setup functions for the Pacman game.
