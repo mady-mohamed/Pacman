@@ -127,3 +127,7 @@ Maze Legend:
 - 15: Top T
 - 16: Wall X
 - 17: Empty space
+
+# Proposed Changes
+
+- Implementation of game.py in C++, starting with the A* Algorithm
