@@ -26,6 +26,7 @@ python main.py
 - heapq: Library for priority queue operations
 - time: Provides time-related functions
 - random: Library for generating random numbers
+- ctypes: Library for running C/C++ dll files in python
 
 # Pacman Game Main Menu Module
 
