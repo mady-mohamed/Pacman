@@ -52,80 +52,33 @@ def setPacmanScore(value):
 dll_path = os.path.abspath("C:\\Users\\moham\\OneDrive\\Desktop\\Python\\Pacman\\algorithms.dll")
 algorithms = ctypes.CDLL(dll_path, winmode=0)
 
-# Define the argument and return types for the heuristic function
-algorithms.heuristic.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_char_p]
-algorithms.heuristic.restype = ctypes.c_float
-
-# Calculate Heuristic Function
-def heuristic(a, b, ghost):
-    (x1, y1) = a
-    (x2, y2) = b
-    distance = abs(x1 - x2) + abs(y1 - y2)
-    
-    if ghost == "RED":
-        return distance * random.uniform(1, 1.25)
-    elif ghost == "CYAN":
-        return distance * random.uniform(1.25, 1.5)
-    elif ghost == "PINK":
-        return distance * random.uniform(1.5, 1.75)
-    else:
-        return distance * random.uniform(1.75, 2)
+# Define the argument and return types for the astar function
+algorithms.astar.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_char_p, ctypes.POINTER(ctypes.POINTER(ctypes.c_int)), ctypes.c_int, ctypes.c_int]
+algorithms.astar.restype = ctypes.POINTER(ctypes.POINTER(ctypes.c_int))
 
 def astar(start, goal, maze, ghost):
-    """
-    A* pathfinding algorithm to find the shortest path from start to goal in a maze.
-    
-    Parameters:
-    - start: Tuple (x, y) representing the starting position.
-    - goal: Tuple (x, y) representing the goal position.
-    - maze: 2D list representing the maze where 0, 1, and 17 are traversable cells.
-    - ghost: Position of the ghost (used in the heuristic function).
-    
-    Returns:
-    - List of tuples representing the path from start to goal, or None if no path is found.
-    """
+    # Convert the maze to a ctypes 2D array
+    maze_height = len(maze)
+    maze_width = len(maze[0])
+    MazeArrayType = ctypes.POINTER(ctypes.c_int) * maze_height
+    maze_array = MazeArrayType()
+    for i in range(maze_height):
+        row = (ctypes.c_int * maze_width)(*maze[i])
+        maze_array[i] = ctypes.cast(row, ctypes.POINTER(ctypes.c_int))
 
+    # Convert start and goal to ctypes
     xStart, yStart = start
     xGoal, yGoal = goal
-    ghost = ghost.encode()
+    ghost = ghost.encode('utf-8')
 
+    # Call the C function
+    result = algorithms.astar(xStart, yStart, xGoal, yGoal, ghost, maze_array, maze_height, maze_width)
 
-    
+    # Convert the result back to a Python list
+    path = []
+    i = 0
+    while result[i][0] != -1:  # Assuming the C function returns -1, -1 to indicate the end of the path
+        path.append((result[i][0], result[i][1]))
+        i += 1
 
-    # Initialize a heap to apply algorithm
-    open_list = []
-    heapq.heapify(open_list)
-    heapq.heappush(open_list, (0, start)) # Initialize with cost (0) and coordinates corresponding to the maze
-    
-    came_from = {} # Dictionary to keep track of path
-    cost_score = {start: 0} # Dictionary to track score of each move
-    astar_score = {start: algorithms.heuristic(xStart, yStart, xGoal, yGoal, ghost)} # Dictionary to document the heuristic function of each move
-    
-    while open_list:
-        current = heapq.heappop(open_list)[1] # pop lowest astar value in list
-        
-
-        # If current move reaches goal, path will be returned
-        if current == goal: 
-            path = []
-            while current in came_from:
-                path.append(current)
-                current = came_from[current]
-            path.append(start)
-            path.reverse()
-            return path
-        
-
-        else:
-
-            for direction in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
-                neighbor = (current[0] + direction[0], current[1] + direction[1]) # Modify x,y based on position of next move
-                # Check if x coordinate movement is within bounds of maze and if it is a legal move
-                if 0 <= neighbor[0] < len(maze) and 0 <= neighbor[1] < len(maze[0]) and maze[neighbor[0]][neighbor[1]] in [0, 1, 17]:
-                    cost = cost_score[current] + 1
-                    # checks if neighbor move (node) has not been visited in the cost_score dictionary, in other words first time algorithm is encountering this node or if newly calculated cost is lower than last recorded cost
-                    if neighbor not in cost_score or cost < cost_score[neighbor]: 
-                        came_from[neighbor] = current  # Record the path: the current node is the predecessor of the neighbor
-                        cost_score[neighbor] = cost  # Update the cost to reach the neighbor
-                        astar_score[neighbor] = cost + algorithms.heuristic(xStart, yStart, xGoal, yGoal, ghost)  # Calculate the A* score (cost + heuristic) for the neighbor
-                        heapq.heappush(open_list, (astar_score[neighbor], neighbor))  # Push the neighbor with its A* score onto the priority queue
+    return path
