@@ -1,4 +1,4 @@
-import pygame, heapq, random
+import pygame, heapq, random, ctypes, os
 
 # Pac-Man position
 
@@ -48,6 +48,14 @@ def setPacmanScore(value):
     pacman_score = value
 
 
+# Load the DLL
+dll_path = os.path.abspath("C:\\Users\\moham\\OneDrive\\Desktop\\Python\\Pacman\\algorithms.dll")
+algorithms = ctypes.CDLL(dll_path, winmode=0)
+
+# Define the argument and return types for the heuristic function
+algorithms.heuristic.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_char_p]
+algorithms.heuristic.restype = ctypes.c_float
+
 # Calculate Heuristic Function
 def heuristic(a, b, ghost):
     (x1, y1) = a
@@ -76,6 +84,14 @@ def astar(start, goal, maze, ghost):
     Returns:
     - List of tuples representing the path from start to goal, or None if no path is found.
     """
+
+    xStart, yStart = start
+    xGoal, yGoal = goal
+    ghost = ghost.encode()
+
+    algorithms.heuristic(xStart, yStart, xGoal, yGoal, ghost)
+    
+
     # Initialize a heap to apply algorithm
     open_list = []
     heapq.heapify(open_list)
