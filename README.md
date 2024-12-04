@@ -86,12 +86,13 @@ Key Features:
 # Pacman Game Settings Module
 
 This module contains the maze design and other game settings for the Pacman game.
-It provides functions to retrieve maze designs for different levels and counts the number of pellets in the maze.
+It provides functions to retrieve maze designs for different levels and counts the number of pellets in the maze. C++ has been implemented to represent A* algorithm.
 
 Key Features:
 - Defines the maze layout for different levels
 - Counts the number of pellets in the maze
 - Provides functions to retrieve maze designs for different levels
+- A* algorithm for ghost movement
 
 # Proposed Changes
 
