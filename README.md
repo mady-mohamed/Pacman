@@ -95,8 +95,8 @@ Key Features:
 
 # Proposed Changes
 
-- Implementation of non interface interactions in C++, starting with the A* Algorithm in game.py
+- Implementation of non interface interactions in C++ (A* algorithm done in game.py)
 - Make pacman movement more smooth rather than moving cell by cell
-- Add ghost warning when pacman kill mode is about to expire
+- Add ghost warning mode when pacman kill mode is about to expire
 - pacman kill mode should be linked by ghost instead as when ghost gets eaten once, ghost is no longer vulnerable
 - Change getMazeDesign function to take 2D list using legend 0 - Dot, 1 - Pellet, 2 - Empty, 3 - Wall and convert to current maze legend for better modifiability - in progress in practise.py:
