@@ -89,7 +89,7 @@ def astar(start, goal, maze, ghost):
     xGoal, yGoal = goal
     ghost = ghost.encode()
 
-    algorithms.heuristic(xStart, yStart, xGoal, yGoal, ghost)
+
     
 
     # Initialize a heap to apply algorithm
@@ -99,7 +99,7 @@ def astar(start, goal, maze, ghost):
     
     came_from = {} # Dictionary to keep track of path
     cost_score = {start: 0} # Dictionary to track score of each move
-    astar_score = {start: heuristic(start, goal, ghost)} # Dictionary to document the heuristic function of each move
+    astar_score = {start: algorithms.heuristic(xStart, yStart, xGoal, yGoal, ghost)} # Dictionary to document the heuristic function of each move
     
     while open_list:
         current = heapq.heappop(open_list)[1] # pop lowest astar value in list
@@ -127,5 +127,5 @@ def astar(start, goal, maze, ghost):
                     if neighbor not in cost_score or cost < cost_score[neighbor]: 
                         came_from[neighbor] = current  # Record the path: the current node is the predecessor of the neighbor
                         cost_score[neighbor] = cost  # Update the cost to reach the neighbor
-                        astar_score[neighbor] = cost + heuristic(neighbor, goal, ghost)  # Calculate the A* score (cost + heuristic) for the neighbor
+                        astar_score[neighbor] = cost + algorithms.heuristic(xStart, yStart, xGoal, yGoal, ghost)  # Calculate the A* score (cost + heuristic) for the neighbor
                         heapq.heappush(open_list, (astar_score[neighbor], neighbor))  # Push the neighbor with its A* score onto the priority queue
