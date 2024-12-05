@@ -122,7 +122,7 @@ def pacman_main():
 
         pygame.display.flip()
 
-        clock.tick(10)
+        clock.tick(13)
 
 if __name__ == "__main__":
     pacman_main()

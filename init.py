@@ -139,10 +139,10 @@ from game import astar
 
 # Ghost positions and colors
 ghosts = [
-    [9, 9, RED, 1, False, 0],  # [row, col, color, accuracy, idle, idle_timer]
-    [9, 9, CYAN, 1, False, 0],
-    [8, 9, PINK, 1, False, 0],
-    [9, 9, ORANGE, 1, False, 0],
+    [9, 9, RED, 1, False, 60],  # [row, col, color, accuracy, idle, idle_timer]
+    [9, 9, CYAN, 1, False, 60],
+    [8, 9, PINK, 1, False, 60],
+    [9, 9, ORANGE, 1, False, 60],
 ]
 
 ghosts[0][1] -= 1
@@ -163,7 +163,7 @@ def move_pacman(direction, maze):
             if pacmanmode == "KILL":
                 killGhost("Left")
         elif getPacmanX() == 0:
-            setPacmanX(len(maze[0]) - 1)
+            setPacmanX(len(maze[0]) - vel)
             setPacmanY(getPacmanY())
             setPacmanOrientation("Left")
 
@@ -189,7 +189,7 @@ def move_pacman(direction, maze):
 
     elif direction == "Down":
         if getPacmanY() < HEIGHT // CELL_SIZE - 1 and maze[int(getPacmanY()+vel)][math.ceil(getPacmanX())] in [0, 1, 17]:
-            setPacmanX(math.ceil(getPacmanX()))
+            setPacmanX(getPacmanX())
             setPacmanY(getPacmanY() + vel)
             setPacmanOrientation("Down")
             if pacmanmode == "KILL":

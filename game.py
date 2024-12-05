@@ -77,7 +77,7 @@ def astar(start, goal, maze, ghost):
     # Convert the result back to a Python list
     path = []
     i = 0
-    while result[i][0] != -1:  # Assuming the C function returns -1, -1 to indicate the end of the path
+    while result[i][0] != -1:  # Assuming the C++ function returns -1, -1 to indicate the end of the path
         path.append((result[i][0], result[i][1]))
         i += 1
 
