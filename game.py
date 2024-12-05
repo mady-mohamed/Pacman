@@ -49,7 +49,7 @@ def setPacmanScore(value):
 
 
 # Load the DLL
-dll_path = os.path.abspath("C:\\Users\\moham\\OneDrive\\Desktop\\Python\\Pacman\\algorithms.dll")
+dll_path = os.path.abspath("algorithms.dll")
 algorithms = ctypes.CDLL(dll_path, winmode=0)
 
 # Define the argument and return types for the astar function
