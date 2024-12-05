@@ -150,7 +150,7 @@ ghosts[1][1] += 1
 
 vel = 1
 
-def move_pacman(direction, maze):
+def move_pacman(direction, maze, vel = 1):
     global pacmanX, pacmanY, pacman_lives, current_direction
 
     

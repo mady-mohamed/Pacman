@@ -1,4 +1,4 @@
-import init, pygame, settings
+import init, pygame, settings, math
 
 maze = settings.getMazeDesign("Level1")
 
@@ -9,6 +9,8 @@ def pacman_main():
     screen = pygame.display.set_mode((init.WIDTH, init.HEIGHT))
 
     while running:
+        # dt = clock.tick(60)/1000
+        print(clock.tick(15))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -39,7 +41,7 @@ def pacman_main():
 
         # Move Pac-Man in the current direction
         if init.current_direction:
-            init.move_pacman(init.current_direction, maze)
+            init.move_pacman(init.current_direction, maze, vel = 1)
 
         # Update maze state for Pac-Man's position
         if maze[init.getPacmanY()][init.getPacmanX()] == 0:
@@ -93,7 +95,6 @@ def pacman_main():
                 if maze[row][col] == 17:
                     settings.mazeZeroCount += 1
         if settings.mazePotZeroCount > settings.mazeZeroCount: 
-            print(settings.mazePotZeroCount, settings.mazeZeroCount) 
             settings.mazePotZeroCount, settings.mazeZeroCount = 0, 0   
             
         elif settings.mazePotZeroCount == settings.mazeZeroCount:
@@ -121,8 +122,6 @@ def pacman_main():
 
 
         pygame.display.flip()
-
-        clock.tick(13)
 
 if __name__ == "__main__":
     pacman_main()

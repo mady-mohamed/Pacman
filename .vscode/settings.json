@@ -5,6 +5,7 @@
         "xutility": "cpp",
         "vector": "cpp",
         "utility": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "random": "cpp"
     }
 }

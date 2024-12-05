@@ -1,8 +1,9 @@
 import pygame
 
 # Screen dimensions
-WIDTH, HEIGHT = 380, 420
-CELL_SIZE = 20
+CELL_SIZE = 30
+WIDTH, HEIGHT = 19 * CELL_SIZE, 21 * CELL_SIZE 
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("Pac-Man")
 
@@ -29,7 +30,7 @@ mazeLevel = 1
 
 # 0 - Dot, 1 - Pellet, 2 - top left corner, 3 - top right corner, 4 - bottom right corner, 5 - bottom left corner, 6 - horizontal wall
 # 7 - vertical wall, 8 - wall end bottom, 9 - wall end left, 10 - wall end right, 11 - wall end top, 12 - bottom T, 13 - left T, 14 - right T
-# 15 - Top T, 16 - Wall X
+# 15 - Top T, 16 - Wall X, 17 - empty cell
 
 def getMazeDesign(level):
     level1maze = [

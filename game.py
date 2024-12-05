@@ -82,3 +82,45 @@ def astar(start, goal, maze, ghost):
         i += 1
 
     return path
+
+def greedy(start, goal, maze, ghost):
+    xStart, yStart = start
+    xGoal, yGoal = goal
+    maze_height = len(maze)
+    maze_width = len(maze[0])
+
+    # Priority queue to store nodes to be explored, ordered by their heuristic value
+    open_list = []
+    heapq.heappush(open_list, (0, (xStart, yStart)))
+    came_from = {}
+    came_from[(xStart, yStart)] = None
+
+    ghost = ghost.encode('utf-8')
+
+    while open_list:
+        _, current = heapq.heappop(open_list)
+        currentX, currentY = current
+
+        # If the goal is reached, reconstruct the path
+        if current == (xGoal, yGoal):
+            path = []
+            while current is not None:
+                path.append(current)
+                current = came_from[current]
+            path.reverse()
+            return path
+
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # Possible movement directions (right, down, left, up)
+        for direction in directions:
+            neighbor = (currentX + direction[0], currentY + direction[1])
+            neighborX, neighborY = neighbor
+
+            # Check if the neighbor is within the maze bounds and is a walkable cell (0, 1, or 17)
+            if 0 <= neighborX < maze_height and 0 <= neighborY < maze_width and maze[neighborX][neighborY] in [0, 1, 17]:
+                if neighbor not in came_from:
+                    priority = algorithms.heuristic(neighborX, neighborY, xGoal, yGoal, ghost)  # Heuristic: Manhattan distance
+                    heapq.heappush(open_list, (priority, neighbor))
+                    came_from[neighbor] = current
+
+    # If no path is found, return an empty path
+    return []

@@ -66,7 +66,7 @@ def main():
                         sys.exit()
 
         draw_menu()
-        clock.tick(15)
+        clock.tick(20)
 
 if __name__ == "__main__":
     main()

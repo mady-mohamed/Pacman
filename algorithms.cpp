@@ -10,14 +10,31 @@ using namespace std;
 
 extern "C" {
     __declspec(dllexport) int** astar(int xStart, int yStart, int xGoal, int yGoal, const char *ghost, int** maze, int maze_height, int maze_width);
+    __declspec(dllexport) int** greedy(int xStart, int yStart, int xGoal, int yGoal, const char *ghost, int** maze, int maze_height, int maze_width);
+    __declspec(dllexport) float heuristic(int xStart, int yStart, int xGoal, int yGoal, const char *ghost);
 }
 
-float heuristic(int xStart, int yStart, int xGoal, int yGoal, const char *ghost) {
+__declspec(dllexport) float heuristic(int xStart, int yStart, int xGoal, int yGoal, const char *ghost) {
     int distance = abs(xGoal - xStart) + abs(yGoal - yStart);
     if (strcmp(ghost, "RED") == 0) {
-        return distance * 1.5f;
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_real_distribution<> dis(1.0, 1.25);
+        return distance * dis(gen);
     }
     else if (strcmp(ghost, "ORANGE") == 0) {
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_real_distribution<> dis(1.25, 1.5);
+        return distance * dis(gen);
+    }
+    else if (strcmp(ghost, "CYAN") == 0) {
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_real_distribution<> dis(1.5, 1.75);
+        return distance * dis(gen);
+    }
+    else if (strcmp(ghost, "PINK") == 0) {
         random_device rd;
         mt19937 gen(rd());
         uniform_real_distribution<> dis(1.75, 2.0);
