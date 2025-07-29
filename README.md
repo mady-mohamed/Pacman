@@ -1,103 +1,113 @@
-# Pacman
+# 🟡 Pacman AI Game
 
-This repository contains the implementation of the classic Pacman game using Python using a simple A* algorithm.
+This repository contains a custom implementation of the classic Pacman game in Python, enhanced with intelligent ghost AI using A* and Greedy algorithms. The game is built with **Pygame** and optimized using **C++ integration** via `ctypes` for performance-critical pathfinding tasks.
 
-# Installation
+---
 
-Pac-man requires Python 3.x (tested on 3.12), only external libraries are pygame, and the corresponding version of the Pygame library in requirements.txt, freely available online. Make sure you install the matching (32- or 64-bit) version of Pygame as your Python installation. Pacman works only on windows.
+<img width="477" height="565" alt="391293653-ab45f6c2-2d38-4a72-b2d7-73c5d6c81114" src="https://github.com/user-attachments/assets/4f7ac047-de23-40ee-841e-08c93c961d96" />
 
-```
+
+## 🖥️ Installation
+
+- Requires Python 3.x (tested on 3.12)
+- Works on **Windows only**
+- Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
-Running the game:
-```
+
+- To run the game:
+
+```bash
 python main.py
 ```
-# Interface
 
-![image](https://github.com/user-attachments/assets/ab45f6c2-2d38-4a72-b2d7-73c5d6c81114)
+---
 
-# Dependencies
+## 🎮 Gameplay Overview
 
-- pygame: Library for creating video games
-- sys: Provides access to system-specific parameters and functions
-- math: Provides mathematical functions
-- copy: Provides functions for copying objects
-- heapq: Library for priority queue operations
-- time: Provides time-related functions
-- random: Library for generating random numbers
-- ctypes: Library for running C/C++ dll files in python
+The game features:
+- Smooth grid-based movement
+- Dynamic ghost behavior powered by AI
+- Intelligent ghost chasing (A*) and fleeing (Greedy)
+- Modular codebase for scalability
 
-# Pacman Game Main Menu Module
+---
 
-This module initializes and runs the main menu for the Pacman game.
-It handles user input for menu navigation and starts the game when selected.
+## 🧠 AI Algorithms (Predator vs. Prey)
 
-Key Features:
-- Initializes the main menu screen
-- Handles user input for navigating the menu
-- Starts the game when "Start Game" is selected
-- Quits the game when "Quit" is selected
+Ghosts in the game are designed to behave differently based on **Pacman's state**:
 
-# Pacman Game Initialization Module
+### 👹 Predator Mode (A* Search)
+When ghosts chase Pacman, they use the **A* algorithm** to calculate the shortest path intelligently:
+- Takes both **cost so far (g)** and **heuristic (h)** into account.
+- Results in **precise, aggressive tracking**, mimicking a predator.
+- Implemented in C++ for performance and integrated with Python.
 
-This module contains the initialization and setup functions for the Pacman game.
-It handles the construction of the game, including setting up the game screen,
-loading resources, and initializing game variables.
+### 👻 Prey Mode (Greedy Search)
+When Pacman eats a power pellet, ghosts switch to fleeing mode using **Greedy search**:
+- Chooses the next step based solely on **heuristic distance to safety**.
+- Less efficient but more **erratic and reactive**, mimicking prey behavior.
+- Prioritizes escape over optimality, adding tension and fun.
 
-Key Features:
-- Initializes game settings and configurations
-- Loads resources such as images and sounds
-- Sets up initial positions and states for Pacman and ghosts
-- Provides utility functions for game operations
+This dynamic creates a **prey-predator reversal**, adding depth to gameplay and strategy.
 
-Functions:
-- setPacmanOrientation: Sets the orientation of Pacman based on the direction
-- draw_lives: Draws the remaining lives of Pacman on the screen
+---
 
-# Pacman Game Logic Module
+## 📷 Interface Preview
 
-This module contains the core game logic for the Pacman game.
-It manages the state of Pacman, ghosts, and other game elements.
-It also handles the movement and interactions of Pacman and ghosts.
+![Gameplay Interface](https://github.com/user-attachments/assets/ab45f6c2-2d38-4a72-b2d7-73c5d6c81114)
 
-Key Features:
-- Manages Pacman's position, direction, and mode
-- Handles ghost movement and state
-- Updates game state based on interactions between Pacman and ghosts
-- Maintains game variables such as score, lives, and timers
+---
 
-Functions:
-- getPacmanX: Returns the current X position of Pacman
-- setPacmanX: Sets the X position of Pacman
+## 🧩 Modules & Structure
 
-# Pacman Game Main Module
+### `main.py` — Game Loop
+- Initializes game and settings
+- Handles input, updates, and rendering
+- Manages transitions (menu ↔ game)
 
-This module initializes and runs the main game loop for the Pacman game.
-It handles user input, updates the game state, and renders the game screen.
+### `menu.py` — Main Menu
+- Navigation UI
+- Handles "Start Game" and "Quit" options
 
-Key Features:
-- Initializes the game screen and settings
-- Handles user input for Pacman movement
-- Updates the game state based on user input and game logic
-- Renders the game screen with updated positions of Pacman, ghosts, and maze elements
-- Manages game events such as quitting the game
+### `init.py` — Game Initialization
+- Loads assets and variables
+- Sets up Pacman, ghosts, and maze
+- Includes utility functions (e.g. `draw_lives`, `setPacmanOrientation`)
 
-# Pacman Game Settings Module
+### `logic.py` — Core Game Logic
+- Controls all object movement and interactions
+- Updates score, life, and states based on collisions
 
-This module contains the maze design and other game settings for the Pacman game.
-It provides functions to retrieve maze designs for different levels and counts the number of pellets in the maze. C++ has been implemented to represent A* algorithm.
+### `settings.py` — Maze & Game Config
+- Holds the maze design and level configurations
+- Implements A* in C++ for faster pathfinding
 
-Key Features:
-- Defines the maze layout for different levels
-- Counts the number of pellets in the maze
-- Provides functions to retrieve maze designs for different levels
-- A* algorithm for ghost movement
+---
 
-# Proposed Changes
+## 📦 Dependencies
 
-- Implementation of non interface interactions in C++ (A* algorithm done in game.py)
-- Make pacman movement more smooth rather than moving cell by cell
-- Add ghost warning mode when pacman kill mode is about to expire
-- pacman kill mode should be linked by ghost instead as when ghost gets eaten once, ghost is no longer vulnerable
-- Change getMazeDesign function to take 2D list using legend 0 - Dot, 1 - Pellet, 2 - Empty, 3 - Wall and convert to current maze legend for better modifiability - in progress in practise.py:
+- `pygame` — Game engine
+- `ctypes` — C++ integration for A*
+- `copy`, `sys`, `math`, `heapq`, `time`, `random` — Native utilities
+
+---
+
+## 🔧 Recommendations & Future Improvements
+
+- ✅ **[Done]** Use C++ for A* algorithm for faster ghost pathfinding
+- 🚧 Improve Pacman movement to support smoother, pixel-based transitions instead of tile-by-tile
+- ⚠️ Add **"ghost warning" state** just before kill-mode expires (e.g. blinking blue)
+- 👻 Adjust ghost vulnerability logic: currently ghosts become permanently invulnerable after being eaten once
+- 🧱 Replace `getMazeDesign()` with 2D legend (0: dot, 1: pellet, 2: empty, 3: wall) for flexibility *(partially done in `practise.py`)*
+
+---
+
+## 📬 Contact
+
+Built by **Mohamed Magdy Mohamed Mady**  
+📧 mohamed.mady2000@gmail.com | [LinkedIn](https://www.linkedin.com/in/mohamed-mady-422b23192)
+
+---
