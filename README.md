@@ -10,6 +10,7 @@ This repository contains a custom implementation of the classic Pacman game in P
 ## 🖥️ Installation
 
 - Requires Python 3.x (tested on 3.12)
+- MinGW-w64 (64-bit GCC) installed and added to your PATH
 - Works on **Windows only**
 - Install dependencies:
 
